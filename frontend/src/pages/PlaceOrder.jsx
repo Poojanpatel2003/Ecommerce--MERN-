@@ -43,12 +43,6 @@ const PlaceOrder = () => {
                     }
                 }
             }
-<<<<<<< HEAD
-            console.log(orderItems);
-            
-        } catch (error) {
-            
-=======
            let orderData={
             address:formData,
             items:orderItems,
@@ -77,7 +71,6 @@ const PlaceOrder = () => {
         } catch (error) {
             console.log(error);
             toast.error(error.message)
->>>>>>> a91a623d6140d5bec0248dea9bdab1d68f0f9a08
         }
     }
     return (

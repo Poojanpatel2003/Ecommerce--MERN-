@@ -1,72 +1,79 @@
 import orderModel from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
 
-const placeOrder= async(req,res)=>{
-    try {
-        const {userId,items,amount,address}=req.body;
-        const orderData={
-            userId,
-            items,
-            address,
-            amount,
-            paymentMethod:"COD",
-            payment:false,
-            date:Date.now()
-        }
-<<<<<<< HEAD
-        const newOrder=new orderModel(orderModel)
-=======
-        const newOrder=new orderModel(orderData)
->>>>>>> a91a623d6140d5bec0248dea9bdab1d68f0f9a08
-        await newOrder.save()
-        await userModel.findByIdAndUpdate(userId,{cartData:{}})
-        res.json({success:true,message:"order Placed"})
-    } catch (error) {
-        console.log(error);
-        res.json({success:false,message:error.message})
-        
-    }
-}
-const placeOrderStripe= async(req,res)=>{
+// Place Order - COD
+const placeOrder = async (req, res) => {
+  try {
+    const { userId, items, amount, address } = req.body;
+    const orderData = {
+      userId,
+      items,
+      address,
+      amount,
+      paymentMethod: "COD",
+      payment: false,
+      date: Date.now(),
+    };
 
-}
-const placeOrderRazorpay= async(req,res)=>{
-}
+    const newOrder = new orderModel(orderData);
+    await newOrder.save();
 
+    // Clear user's cart after placing the order
+    await userModel.findByIdAndUpdate(userId, { cartData: {} });
 
-const allOrders= async(req,res)=>{
-<<<<<<< HEAD
+    res.json({ success: true, message: "Order placed successfully" });
+  } catch (error) {
+    console.log("Place Order Error:", error);
+    res.json({ success: false, message: error.message });
+  }
+};
 
-=======
-    try {
-        const orders =await orderModel.find({})
-        res.json({success:true,orders})
-    } catch (error) {
-        console.log(error);
-        res.json({success:false,message:error.message})
-    }
->>>>>>> a91a623d6140d5bec0248dea9bdab1d68f0f9a08
-}
+// Place Order - Stripe (To be implemented)
+const placeOrderStripe = async (req, res) => {
+  // TODO: Implement Stripe payment logic
+  res.json({ success: false, message: "Stripe order not implemented yet." });
+};
 
+// Place Order - Razorpay (To be implemented)
+const placeOrderRazorpay = async (req, res) => {
+  // TODO: Implement Razorpay payment logic
+  res.json({ success: false, message: "Razorpay order not implemented yet." });
+};
 
-const userOrders= async(req,res)=>{
-<<<<<<< HEAD
+// Get All Orders (Admin)
+const allOrders = async (req, res) => {
+  try {
+    const orders = await orderModel.find({});
+    res.json({ success: true, orders });
+  } catch (error) {
+    console.log("All Orders Error:", error);
+    res.json({ success: false, message: error.message });
+  }
+};
 
-=======
-    try {
-        const {userId}=req.body;
-        const orders=await orderModel.find({userId});
-        res.json({success:true,orders})
-    } catch (error) {
-        console.log(error);
-        res.json({success:false,message:error.message})
-    }
->>>>>>> a91a623d6140d5bec0248dea9bdab1d68f0f9a08
-}
+// Get Orders of a Specific User
+const userOrders = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const orders = await orderModel.find({ userId });
+    res.json({ success: true, orders });
+  } catch (error) {
+    console.log("User Orders Error:", error);
+    res.json({ success: false, message: error.message });
+  }
+};
 
+// Update Order Status (To be implemented)
+const updateStatus = async (req, res) => {
+  // TODO: Implement status update logic
+  res.json({ success: false, message: "Update status not implemented yet." });
+};
 
-const updateStatus= async(req,res)=>{
-
-}
-
-export {allOrders,placeOrder,placeOrderRazorpay,placeOrderStripe,userOrders,updateStatus}
+export {
+  allOrders,
+  placeOrder,
+  placeOrderStripe,
+  placeOrderRazorpay,
+  userOrders,
+  updateStatus,
+};

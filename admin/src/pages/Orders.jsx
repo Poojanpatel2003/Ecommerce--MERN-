@@ -1,27 +1,15 @@
-<<<<<<< HEAD
-import React from 'react';
-
-const Orders = () => {
-    return (
-        <div>
-            
-        </div>
-    );
-}
-=======
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { backendUrl, currency } from "../App";
 import { toast } from "react-toastify";
 import { assets } from "../assets/admin_assets/assets";
+
 const Orders = ({ token }) => {
   const [orders, setOrders] = useState([]);
+
   const fetchAllOrders = async () => {
-    if (!token) {
-      return null;
-    }
+    if (!token) return;
+
     try {
       const response = await axios.post(
         backendUrl + "/api/order/list",
@@ -31,71 +19,57 @@ const Orders = ({ token }) => {
       if (response.data.success) {
         setOrders(response.data.orders);
       } else {
-        toast.error(response.data.orders);
+        toast.error(response.data.message || "Failed to fetch orders");
       }
     } catch (error) {
-      console.log(error);
+      console.error("Fetch Orders Error:", error);
+      toast.error("Something went wrong while fetching orders.");
     }
   };
+
   useEffect(() => {
     fetchAllOrders();
   }, [token]);
+
   return (
     <div>
-      <h3>Order Page</h3>
+      <h3 className="text-xl font-semibold mb-4">Order Page</h3>
       <div>
         {orders.map((order, index) => (
           <div
-            className="grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-3 items-start border-2 border-gray-200 p-5 md:p-8 my-3 md:my-4 text-xs sm:text-sm text-gray-700 "
+            className="grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-3 items-start border-2 border-gray-200 p-5 md:p-8 my-3 md:my-4 text-xs sm:text-sm text-gray-700"
             key={index}
           >
-            <img src={assets.parcel_icon} alt="" />
+            <img src={assets.parcel_icon} alt="Parcel Icon" className="w-10 h-10" />
             <div>
-                <div>
-                    {order.items.map((item, index) => {
-                    if (index === order.items.length - 1) {
-                     return (
-                         <p className="py-0.5" key={index}>
-                            {" "}
-                        {item.name} x {item.quantity} <span>{item.size}</span>{" "}
-                      </p>
-                    );
-                  } else {
-                    return (
-                      <p className="py-0.5" key={index}>
-                        {" "}
-                        {item.name} x {item.quantity} <span>{item.size}</span>,
-                      </p>
-                    );
-                  }
-                })}
-              </div>
-              <p>{order.address.firstName + " " + order.address.lastName}</p>
               <div>
-                <p>{order.address.street + ","}</p>
+                {order.items.map((item, idx) => (
+                  <p className="py-0.5" key={idx}>
+                    {item.name} x {item.quantity} <span>{item.size}</span>
+                    {idx !== order.items.length - 1 ? "," : ""}
+                  </p>
+                ))}
+              </div>
+              <p>{`${order.address.firstName} ${order.address.lastName}`}</p>
+              <div>
+                <p>{order.address.street},</p>
                 <p>
-                  {order.address.city +
-                    "," +
-                    order.address.state +
-                    "," +
-                    order.address.country +
-                    "," +
-                    order.address.zipCode}
+                  {`${order.address.city}, ${order.address.state}, ${order.address.country}, ${order.address.zipCode}`}
                 </p>
               </div>
               <p>{order.address.phone}</p>
             </div>
             <div>
-              <p>Items:{order.items.length}</p>
-              <p>Method:{order.paymentMethod}</p>
-              <p>Payment:{order.payment ? "Done" : "Pending"}</p>
-              <p>Date:{new Date(order.date).toLocaleDateString()}</p>
+              <p>Items: {order.items.length}</p>
+              <p>Method: {order.paymentMethod}</p>
+              <p>Payment: {order.payment ? "Done" : "Pending"}</p>
+              <p>Date: {new Date(order.date).toLocaleDateString()}</p>
             </div>
             <p>
               {currency}
               {order.amount}
             </p>
-            <select>
+            <select defaultValue={order.status}>
               <option value="Order Placed">Order Placed</option>
               <option value="Packing">Packing</option>
               <option value="Shipped">Shipped</option>
@@ -108,6 +82,5 @@ const Orders = ({ token }) => {
     </div>
   );
 };
->>>>>>> a91a623d6140d5bec0248dea9bdab1d68f0f9a08
 
 export default Orders;
