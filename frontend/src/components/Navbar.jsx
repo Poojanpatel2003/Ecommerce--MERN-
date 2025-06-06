@@ -3,6 +3,8 @@ import {assets} from "../assets/frontend_assets/assets";
 import { NavLink ,Link} from 'react-router-dom';
 import { ShopContext } from '../context/ShopContext';
 const Navbar = () => {
+    const [dropdownVisible, setDropdownVisible] = useState(false);
+
     const [visible,setVisible]=useState(false);
     const {setShowSearch,getCartCount,navigate,token,setToken,setCartItems}=useContext(ShopContext);
     const logout=()=>{
@@ -14,7 +16,7 @@ const Navbar = () => {
     }
     return (
         <div className='flex items-center justify-between py-5 font-medium'>
-            <Link to="/"><img src={assets.logo} className='w-36' alt="" />
+            <Link to="/"><img src={assets.logo} className='w-46' alt="" />
             </Link>
         <ul className='hidden sm:flex gap-5 text-sm text-gray-700'>
         <NavLink to='/' className="flex flex-col items-center gap-1">
@@ -38,16 +40,34 @@ const Navbar = () => {
             <img onClick={()=>setShowSearch(true)} src={assets.search_icon} className='w-5 cursor-pointer' alt="" />
             <div className='group relative'>
                 
-                <img onClick={()=>token ?null:navigate('/login')} className='w-5 cursor-pointer' src={assets.profile_icon} alt="" />
-            {token && 
-            <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4'>
-                    <div className='flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded'>
-                    <p className="cursor-pointer hover:text-black">My Profile</p>
-                    <p onClick={()=>navigate('/orders')} className="cursor-pointer hover:text-black">Orders</p>
-                    <p onClick={logout} className="cursor-pointer hover:text-black">Logout</p>
-                    </div>
-                </div>
-                }
+                <img 
+  onClick={() => {
+    if (!token) {
+      navigate('/login');
+    } else {
+      setDropdownVisible(!dropdownVisible);
+    }
+  }}
+  className='w-5 cursor-pointer' 
+  src={assets.profile_icon} 
+  alt="" 
+/>
+
+            {token && dropdownVisible && (
+  <div className='absolute right-0 pt-4'>
+    <div className='flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded shadow'>
+      <p onClick={() => {
+        navigate('/orders');
+        setDropdownVisible(false);
+      }} className="cursor-pointer hover:text-black">Orders</p>
+      <p onClick={() => {
+        logout();
+        setDropdownVisible(false);
+      }} className="cursor-pointer hover:text-black">Logout</p>
+    </div>
+  </div>
+)}
+
                 
             </div>
             <Link to='/cart' className='relative'>

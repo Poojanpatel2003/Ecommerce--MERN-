@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import "react-toastify/dist/ReactToastify.css";
 import Home from './pages/Home';
 import Collection from './pages/Collection';
 import About from './pages/About';
@@ -12,12 +13,24 @@ import Navbar from './components/Navbar';
 import React from 'react';
 import Footer from './components/Footer';
 import SearchBar from './components/SearchBar';
-import { ToastContainer } from 'react-toastify';
+import { Bounce, ToastContainer } from 'react-toastify';
 import Verify from './pages/verify';
 const App=()=> {
   return (
     <div className='px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
-      <ToastContainer/>
+      <ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick={false}
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="colored"
+transition={Bounce}
+/>
       <Navbar/>
       <SearchBar/>
       <Routes>

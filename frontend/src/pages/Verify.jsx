@@ -7,8 +7,8 @@ import { toast } from 'react-toastify';
 
 const Verify = () => {
     const { token, setCartItem } = useContext(ShopContext);
-    const [searchParams,setSearchParams] = useSearchParams(); // ✅ Correct hook for query params
-    const navigate = useNavigate(); // ✅ Use navigate from react-router
+    const [searchParams] = useSearchParams(); 
+    const navigate = useNavigate();
 
     const success = searchParams.get('success');
     const orderId = searchParams.get('orderId');
@@ -29,17 +29,19 @@ const Verify = () => {
             } else {
                 navigate('/cart');
             }
-        } catch (error) {
+        } catch (error){
             console.log(error);
             toast.error(error.message);
         }
-    };
+    };  
 
     useEffect(() => {
         verifyPayment();
     }, [token]);
 
-    return <div></div>;
+    return <div>
+        
+    </div>;
 };
 
 export default Verify;

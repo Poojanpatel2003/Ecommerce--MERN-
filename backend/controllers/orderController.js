@@ -96,11 +96,7 @@ const verifyStripe=async(req,res)=>{
 console.log(error)
   }
 }
-// Place Order - Razorpay (To be implemented)
-const placeOrderRazorpay = async (req, res) => {
-  // TODO: Implement Razorpay payment logic
-  res.json({ success: false, message: "Razorpay order not implemented yet." });
-};
+
 
 // Get All Orders (Admin)
 const allOrders = async (req, res) => {
@@ -143,7 +139,6 @@ export {
   allOrders,
   placeOrder,
   placeOrderStripe,
-  placeOrderRazorpay,
   userOrders,
   updateStatus,
   verifyStripe

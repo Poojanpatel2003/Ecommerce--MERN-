@@ -17,8 +17,8 @@ const Contact = () => {
       />
       <div className="flex flex-col justify-center items-start gap-6">
         <p className="font-semibold text-xl text-gray-600">Our Store</p>
-        <p className="text-gray-500">54709 willms Station <br /> Suite 350, washington,USA</p>
-        <p className="text-gray-500">Tel:1234567890 <br /> Email:admin@forever.com</p>
+        <p className="text-gray-500">Visnagar, Meshana <br />Gujarat, India</p>
+        <p className="text-gray-500">Tel:9722379175 <br /> Email:shopyatra@gmail.com</p>
         <p className="font-semibold text-xl text-gray-600">Careers At Forever</p>
         <p>Learn more about our teams and job openings.</p>
         <button className="border border-black px-8 py-4 text-sm hover:bg-black hover:text-white transition-all duration-500"> Explore Jobs</button>
