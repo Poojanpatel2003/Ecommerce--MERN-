@@ -26,14 +26,14 @@ const Footer = () => {
             </p>
             <ul className='flex flex-col gap-1 text-gray-600'>
                 <li>+91-123-123-1234</li>
-                <li>contact@foreveryou.com</li>
+                <li>contact@shopyatra.com</li>
             </ul>
         </div>
         </div>
         <div>
             <hr className='text-gray-300'/>
             <p className='py-5 text-sm text-center'>
-            Copyright 2024@ forever.com - All Right Reserved.
+            Copyright 2024@ shopyatra.com - All Right Reserved.
             </p>
        
         </div>
