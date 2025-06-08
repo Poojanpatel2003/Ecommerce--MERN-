@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { ShopContext } from '../context/ShopContext';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { backendUrl } from '../../../admin/src/App';
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 import { toast } from 'react-toastify';
 
 const Verify = () => {
