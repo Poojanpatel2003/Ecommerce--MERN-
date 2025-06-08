@@ -14,7 +14,7 @@ import React from 'react';
 import Footer from './components/Footer';
 import SearchBar from './components/SearchBar';
 import { Bounce, ToastContainer } from 'react-toastify';
-import Verify from './pages/verify';
+import Verify from './pages/Verify';
 const App=()=> {
   return (
     <div className='px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
